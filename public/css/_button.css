@@ -1,0 +1,38 @@
+.btn {
+    width: fit-content;
+
+    padding: .4em .7em;
+
+    display: block;
+
+    background-color: var(--main);
+
+    outline: none;
+    border: none;
+    -webkit-border-radius: var(--radius);
+    -moz-border-radius: var(--radius);
+    border-radius: var(--radius);
+
+    font-size: 1.4rem;
+    font-weight: 400;
+
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow .4s, transform .1s;
+}
+
+.btn:hover, .btn:focus {
+    box-shadow: 0 0 1rem var(--main);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn.danger {
+    background-color: var(--danger);
+}
+
+.btn.danger:hover, .btn.danger:focus {
+    box-shadow: 0 0 1rem var(--danger);
+}

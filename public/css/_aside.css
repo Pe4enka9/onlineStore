@@ -1,0 +1,27 @@
+aside {
+    padding: 2rem;
+
+    background-color: #DECCCC;
+
+    -webkit-border-radius: var(--radius);
+    -moz-border-radius: var(--radius);
+    border-radius: var(--radius);
+
+    position: fixed;
+    top: 10rem;
+    left: 3rem;
+}
+
+aside nav {
+    width: 9rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+aside nav a {
+    width: 100% !important;
+
+    text-align: center;
+}

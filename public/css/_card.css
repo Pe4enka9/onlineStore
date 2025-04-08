@@ -1,0 +1,29 @@
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 2rem;
+}
+
+.card {
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+
+    background-color: #B89E97;
+
+    -webkit-border-radius: var(--radius);
+    -moz-border-radius: var(--radius);
+    border-radius: var(--radius);
+}
+
+.card .img-container {
+    width: 30rem;
+    height: 30rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

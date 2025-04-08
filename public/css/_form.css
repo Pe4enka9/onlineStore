@@ -1,0 +1,52 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+input, textarea, select {
+    width: 30rem;
+
+    padding: .3em .5em;
+
+    outline: none;
+    border: .2rem solid #ccc;
+    -webkit-border-radius: var(--radius);
+    -moz-border-radius: var(--radius);
+    border-radius: var(--radius);
+
+    font-size: 1.4rem;
+    font-weight: 400;
+
+    transition: border-color .5s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--main);
+}
+
+textarea {
+    min-height: 3rem;
+    resize: vertical;
+}
+
+option {
+    font-size: inherit;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.error {
+    width: 30rem;
+
+    color: var(--danger);
+}
