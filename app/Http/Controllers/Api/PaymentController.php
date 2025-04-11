@@ -38,7 +38,7 @@ class PaymentController extends Controller
 
     public function processPayment(Request $request, string $orderId): JsonResponse
     {
-        $status = $request->input('credit_card') === '8888 0000 0000 1111';
+        $status = $request->input('credit_card') === '8888 0000 0000 1111' ? 2 : 3;
 
         $request = new Request([
             'status' => $status,

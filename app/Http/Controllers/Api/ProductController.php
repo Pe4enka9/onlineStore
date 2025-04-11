@@ -34,7 +34,7 @@ class ProductController extends Controller
     public function finalPayment(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'status' => ['required', 'boolean'],
+            'status' => ['required', 'numeric', 'in:2,3'],
             'order_id' => ['required', 'string'],
         ]);
 
@@ -52,7 +52,7 @@ class ProductController extends Controller
         }
 
         $order->update([
-            'paid' => $status,
+            'status_id' => $status,
         ]);
 
         return response()->json(['success' => true]);

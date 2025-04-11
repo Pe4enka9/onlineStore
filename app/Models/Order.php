@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $user_id
  * @property int $product_id
  * @property float $price
- * @property boolean $paid
+ * @property int $status_id
  *
  * @property-read Product $product
  * @property-read User $user
+ * @property-read Status $status
  */
 class Order extends Model
 {
@@ -28,5 +29,10 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class, 'status_id');
     }
 }
