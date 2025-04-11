@@ -18,8 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
 
     Route::post('/products/{product}/buy', [ProductController::class, 'buy']);
-});
 
-Route::post('/payments', [PaymentController::class, 'payment']);
-Route::post('/process-payment/{orderId}', [PaymentController::class, 'processPayment']);
-Route::post('/payment-webhook', [ProductController::class, 'finalPayment']);
+    Route::post('/payments', [PaymentController::class, 'payment']);
+    Route::post('/process-payment/{orderId}', [PaymentController::class, 'processPayment']);
+    Route::post('/payment-webhook', [ProductController::class, 'finalPayment']);
+});
