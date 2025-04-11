@@ -41,19 +41,19 @@ class ProductController extends Controller
         $status = $validated['status'];
         $orderId = $validated['order_id'];
 
-        if (!$status) {
-            return response()->json(['success' => false], 422);
-        }
-
         $order = Order::where('order_id', $orderId)->first();
 
         if (!$order) {
-            return response()->json(['success' => false], 404);
+            return response()->json([], 404);
         }
 
         $order->update([
             'status_id' => $status,
         ]);
+
+        if ($status === 3) {
+            return response()->json(['success' => false], 422);
+        }
 
         return response()->json(['success' => true]);
     }

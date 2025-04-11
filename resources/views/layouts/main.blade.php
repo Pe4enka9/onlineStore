@@ -10,13 +10,15 @@
 </head>
 <body>
 
-<aside>
-    <nav>
-        <a href="{{ route('categories.index') }}" class="btn">Категории</a>
-        <a href="{{ route('products.index') }}" class="btn">Товары</a>
-        <a href="{{ route('orders.index') }}" class="btn">Заказы</a>
-    </nav>
-</aside>
+@if(auth()->check())
+    <aside>
+        <nav>
+            <a href="{{ route('categories.index') }}" class="btn">Категории</a>
+            <a href="{{ route('products.index') }}" class="btn">Товары</a>
+            <a href="{{ route('orders.index') }}" class="btn">Заказы</a>
+        </nav>
+    </aside>
+@endif
 
 <div class="container">
     @yield('content')

@@ -19,10 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $exception, Request $request) {
-            return response()->json(null, 401);
+            return response()->json([], 401);
         });
 
         $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
-            return response()->json(null, 404);
+            return response()->json([], 404);
         });
     })->create();

@@ -13,12 +13,12 @@ class CategoryController extends Controller
     // Получение списка категорий
     public function index(): JsonResponse
     {
-        return response()->json(CategoryResource::collection(Category::all()));
+        return response()->json(['data' => CategoryResource::collection(Category::all())]);
     }
 
     // Получение списка товаров категории
     public function products(Category $category): JsonResponse
     {
-        return response()->json(ProductResource::collection($category->products));
+        return response()->json(['data' => ProductResource::collection($category->products)]);
     }
 }
