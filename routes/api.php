@@ -12,6 +12,7 @@ Route::post('/auth', [UserController::class, 'auth']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{category}/products', [CategoryController::class, 'products']);
 
+Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 
 Route::middleware('auth:sanctum')->group(function () {

@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
+    // Все товары
+    public function index(): JsonResponse
+    {
+        $products = Product::all();
+
+        return response()->json(ProductResource::collection($products));
+    }
+
     // Просмотр товара
     public function show(Product $product): JsonResponse
     {
