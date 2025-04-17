@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\WebhookRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -17,44 +20,48 @@ class ProductController extends Controller
         return response()->json(new ProductResource($product));
     }
 
-    // Покупка
+    /**
+     * Покупка
+     *
+     * @throws ConnectionException
+     */
     public function buy(Request $request, Product $product): JsonResponse
     {
-        $request = new Request([
-            'price' => $product->price,
-            'product_id' => $product->id,
+        $order = Order::create([
             'user_id' => $request->user()->id,
-            'webhook_url' => url('/payment-webhook'),
+            'product_id' => $product->id,
+            'price' => $product->price,
         ]);
 
-        return (new PaymentController())->payment($request);
+        $response = Http::post('http://127.0.0.1:8081/api/create-link', [
+            'price' => $product->price,
+            'webhook_url' => url('/api/payment-webhook'),
+        ]);
+
+        if ($response->successful()) {
+            $responseData = $response->json();
+
+            $order->update([
+                'payment_id' => $responseData['payment_id'],
+            ]);
+
+            return response()->json([
+                'pay_url' => $responseData['pay_url'],
+            ]);
+        }
+
+        return response()->json(['success' => false], 500);
     }
 
-    // Конец покупки
-    public function finalPayment(Request $request): JsonResponse
+    // Webhook
+    public function webhook(WebhookRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'status' => ['required', 'numeric', 'in:2,3'],
-            'order_id' => ['required', 'string'],
-        ]);
-
-        $status = $validated['status'];
-        $orderId = $validated['order_id'];
-
-        $order = Order::where('order_id', $orderId)->first();
-
-        if (!$order) {
-            return response()->json([], 404);
-        }
+        $order = Order::where('payment_id', $request->input('payment_id'))->first();
 
         $order->update([
-            'status_id' => $status,
+            'status_id' => $request->input('status'),
         ]);
 
-        if ($status === 3) {
-            return response()->json(['success' => false], 422);
-        }
-
-        return response()->json(['success' => true]);
+        return response()->json(null, 204);
     }
 }

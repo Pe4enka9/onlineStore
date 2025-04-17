@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property int $order_id
+ * @property int|null $payment_id
  * @property int $user_id
  * @property int $product_id
  * @property float $price
